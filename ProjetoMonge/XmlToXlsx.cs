@@ -97,14 +97,14 @@ namespace ProjetoMonge
 
                         if (NFHard[i] == "<nNF>")
                         {
-                            nfs[0] = NFHard[i + 1].ToString();
+                            string value = NFHard[i + 1].ToString() + "";                            
+                            nfs[0] = value;
                             addOne = true;
-
-
                         }
                         if (NFHard[i] == "<vNF>")
                         {
-                            nfs[1] = NFHard[i + 1].ToString();
+                            string value = NFHard[i + 1].ToString() + "";
+                            nfs[1] = value;
                             addTwo = true;
                         }
                     }
