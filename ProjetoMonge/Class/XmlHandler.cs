@@ -11,7 +11,7 @@ namespace ProjetoMonge.Class
     {
 
         public List<string> ReadXml(string xmlstring)
-        {
+        {            
             XmlTextReader xmlReader = new XmlTextReader(xmlstring);
             List<string> list = new List<string>();
             while (xmlReader.Read())

@@ -88,6 +88,13 @@ namespace ProjetoMonge
                     {
                         break;
                     }
+                    {
+                        FileInfo fileInfo = new FileInfo(row.Cells[0].Value.ToString());
+                        if (fileInfo.Length < 100)
+                        {
+                            break;
+                        }
+                    }
                     List<string> NFHard = read.ReadXml(row.Cells[0].Value.ToString());
                     string[] nfs = new string[2];
                     bool addOne = false;
@@ -97,7 +104,7 @@ namespace ProjetoMonge
 
                         if (NFHard[i] == "<nNF>")
                         {
-                            string value = NFHard[i + 1].ToString() + "";                            
+                            string value = NFHard[i + 1].ToString() + "";
                             nfs[0] = value;
                             addOne = true;
                         }
@@ -111,15 +118,18 @@ namespace ProjetoMonge
                     if (addOne && addTwo)
                     {
                         nf.Add(nfs);
-                    }                   
+                    }
                 }
-                if (nf.Count > 0) {
+                if (nf.Count > 0)
+                {
                     XlsxHandler ListToXlsx = new XlsxHandler();
                     string filePath = Txt_XlsxPath.Text + "\\" + Txt_FileName.Text + ".xlsx";
                     ListToXlsx.CreateXlsx(filePath, nf);
                     System.Diagnostics.Process.Start("explorer.exe", Txt_XlsxPath.Text);
                     MessageBox.Show("Operação concluída com sucesso!", "Operação Finalizada", MessageBoxButtons.OK, MessageBoxIcon.None);
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Não encontrado dados de nota Fiscal", "Algum erro ocorreu!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
