@@ -90,25 +90,38 @@ namespace ProjetoMonge
                     }
                     List<string> NFHard = read.ReadXml(row.Cells[0].Value.ToString());
                     string[] nfs = new string[2];
+                    bool addOne = false;
+                    bool addTwo = false;
                     for (int i = 0; i < NFHard.Count - 1; i++)
                     {
 
                         if (NFHard[i] == "<nNF>")
                         {
                             nfs[0] = NFHard[i + 1].ToString();
+                            addOne = true;
+
+
                         }
                         if (NFHard[i] == "<vNF>")
                         {
                             nfs[1] = NFHard[i + 1].ToString();
+                            addTwo = true;
                         }
                     }
-                    nf.Add(nfs);
-                }                
-                XlsxHandler ListToXlsx = new XlsxHandler();
-                string filePath = Txt_XlsxPath.Text + "\\" + Txt_FileName.Text + ".xlsx";
-                ListToXlsx.CreateXlsx(filePath, nf);
-                System.Diagnostics.Process.Start("explorer.exe", Txt_XlsxPath.Text);
-                MessageBox.Show("Operação concluída com sucesso!", "Operação Finalizada", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    if (addOne && addTwo)
+                    {
+                        nf.Add(nfs);
+                    }                   
+                }
+                if (nf.Count > 0) {
+                    XlsxHandler ListToXlsx = new XlsxHandler();
+                    string filePath = Txt_XlsxPath.Text + "\\" + Txt_FileName.Text + ".xlsx";
+                    ListToXlsx.CreateXlsx(filePath, nf);
+                    System.Diagnostics.Process.Start("explorer.exe", Txt_XlsxPath.Text);
+                    MessageBox.Show("Operação concluída com sucesso!", "Operação Finalizada", MessageBoxButtons.OK, MessageBoxIcon.None);
+                } else {
+                    MessageBox.Show("Não encontrado dados de nota Fiscal", "Algum erro ocorreu!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
